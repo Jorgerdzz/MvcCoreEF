@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MvcCoreEF.Models;
 using MvcCoreEF.Repositories;
+using System.Threading.Tasks;
 
 namespace MvcCoreEF.Controllers
 {
@@ -24,6 +25,25 @@ namespace MvcCoreEF.Controllers
             Hospital hospital = await this.repo.FindHospitalByIdAsync(idhospital);
             return View(hospital);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Hospital hospital)
+        {
+            await this.repo.CreateHospitalAsync(hospital.IdHospital, hospital.Nombre, hospital.Direccion, hospital.Telefono, hospital.Camas);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(int idhospital)
+        {
+            await this.repo.DeleteHospitalAsync(idhospital);
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

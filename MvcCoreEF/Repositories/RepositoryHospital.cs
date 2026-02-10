@@ -36,5 +36,33 @@ namespace MvcCoreEF.Repositories
             return await consulta.FirstOrDefaultAsync();
         }
 
+        public async Task CreateHospitalAsync(int idHospital, string nombre, string direccion, string telefono, int camas)
+        {
+            Hospital hospital = new Hospital
+            {
+                IdHospital = idHospital,
+                Nombre = nombre,
+                Direccion = direccion,
+                Telefono = telefono,
+                Camas = camas
+            };
+            //AÑADIMOS NUESTRO OBJETO AL DBSET
+            //AHORA ES TEMPORAL, ESTA EN LA COLECCION
+            //SALDRA EN LAS CONSULTAS, PERO NO ESTA EN LA BBDD
+            await this.context.Hospitales.AddAsync(hospital);
+            //GUARDAMOS EN LA BASE DE DATOS
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task DeleteHospitalAsync(int idHospital)
+        {
+            //BUSCAMOS EL HOSPITAL A ELIMINAR
+            Hospital hospital = await this.FindHospitalByIdAsync(idHospital);
+            //ELIMINAMOS TEMPORALMENTE DE LA COLLECCION
+            this.context.Hospitales.Remove(hospital);
+            //ELIMINAMOS DE LA BASE DE DATOS
+            await this.context.SaveChangesAsync();
+        }
+
     }
 }

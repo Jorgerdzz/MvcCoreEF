@@ -7,6 +7,8 @@
 
 <h1>Hospitales</h1>
 
+<a class="btn btn-success" asp-controller="Hospitales" asp-action="Create">Crear hospital</a>
+
 @if(Model != null)
 {
     <table class="table table-info table-bordered">
@@ -27,6 +29,7 @@
                     <td>@hospital.Telefono</td>
                     <td>
                         <a class="btn btn-warning" asp-controller="Hospitales" asp-action="Details" asp-route-idhospital="@hospital.IdHospital">Details</a>
+                        <a class="btn btn-danger" asp-controller="Hospitales" asp-action="Delete" asp-route-idhospital="@hospital.IdHospital">Delete</a>
                     </td>
                 </tr>
             }
