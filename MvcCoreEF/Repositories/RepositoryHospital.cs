@@ -64,5 +64,17 @@ namespace MvcCoreEF.Repositories
             await this.context.SaveChangesAsync();
         }
 
+        public async Task UpdateHospitalAsync(int idHospital, string nombre, string direccion, string telefono, int camas)
+        {
+            Hospital hospital = await this.FindHospitalByIdAsync(idHospital);
+            //MODIFICAMOS TODAS SUS PROPIEDADES, EXCEPTO SU [Key]
+            hospital.Nombre = nombre;
+            hospital.Direccion = direccion;
+            hospital.Telefono = telefono;
+            hospital.Camas = camas;
+            //NO TENEMOS NINGUN METODO PARA REALIZAR UPDATE DENTRO DE LAS COLECCIONES
+            await this.context.SaveChangesAsync();
+        }
+
     }
 }

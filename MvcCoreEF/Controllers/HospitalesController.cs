@@ -44,6 +44,18 @@ namespace MvcCoreEF.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Update(int idhospital)
+        {
+            Hospital hos = await this.repo.FindHospitalByIdAsync(idhospital);
+            return View(hos);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Hospital hospital)
+        {
+            await this.repo.UpdateHospitalAsync(hospital.IdHospital, hospital.Nombre, hospital.Direccion, hospital.Telefono, hospital.Camas);
+            return RedirectToAction("Index");
+        }
 
     }
 }
