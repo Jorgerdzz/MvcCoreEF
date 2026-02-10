@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<RepositoryHospital>();
-string connectionString = @"Data Source=LOCALHOST\DEVELOPER;Initial Catalog=HOSPITAL;User ID=SA;Encrypt=True;Trust Server Certificate=True";
+string connectionString = builder.Configuration.GetConnectionString("SqlHospital");
 //En AddDbContext, dentro de sus options hacia el Context, le indicaremos
 //la cadena de conexión
 builder.Services.AddDbContext<HospitalContext>(options => options.UseSqlServer(connectionString));
